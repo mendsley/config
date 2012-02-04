@@ -6,7 +6,7 @@ setlocal
 
 	:: vim/gvim configuration
 	del %HOME%\.vimrc 1>nul 2>nul
-	del %HOME%\.gvimrc 1>nul 2>nuk
+	del %HOME%\.gvimrc 1>nul 2>nul
 	del %HOME%\_gvimrc 1>nul 2>nul
 	del %HOME%\_vimrc 1>nul 2>nul
 	rmdir /s /q %HOME%\.vim 1>nul 2>nul
