@@ -1,0 +1,40 @@
+[user]
+	name = Matthew Endsley
+	email = mendsley@gmail.com
+[color]
+	ui = always
+[alias]
+	lp = log --pretty=format:'%C(yellow dim)%h%Creset %C(cyan)%an%Creset %s'
+	df = diff --color
+	dt = difftool
+	mt = mergetool
+	s = status
+	ca = commit --amend
+	rc = rebase --continue
+	lol = log --graph --decorate --pretty=oneline --abbrev-commit --color
+	lola = log --graph --decorate --pretty=oneline --abbrev-commit --all --color
+	lpm = log --pretty=format:'%C(yellow dim)%h%Creset %C(cyan)%an%Creset %s' remotes/p4/master..
+	lstats = log --no-color -p --word-diff=porcelain -U0 -w --word-diff-regex="[^[:space:]]"
+	rb = rebase -i --autosquash
+	sh = show --name-only
+[merge]
+	tool = bc3
+[mergetool "bc3"]
+	cmd = BComp.com \"$LOCAL\" \"$REMOTE\" \"$BASE\" \"$MERGED\"
+	trustExitCode = true
+[diff]
+	tool = bc3
+[difftool "bc3"]
+	cmd = BComp.com \"$LOCAL\" \"$REMOTE\"
+[mergetool]
+	keepbackup = false
+	keeptemporaries = false
+[core]
+	autocrlf = false
+	hideDotFiles = dotGitOnly
+[difftool]
+	prompt = false
+[svn]
+	rmdir = true
+[am]
+	keepcr = true
