@@ -17,4 +17,8 @@ setlocal
 	mklink %HOME%\_vimrc "%HOME%\.vimrc"
 	mklink /D %HOME%\vimfiles "%HOME%\.vim"
 
+	:: git configuration
+	del %HOME%\.gitconfig
+	mklink %HOME%\.gitconfig "%ROOT%\.gitconfig"
+
 endlocal
