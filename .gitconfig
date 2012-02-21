@@ -17,6 +17,7 @@
 	lstats = log --no-color -p --word-diff=porcelain -U0 -w --word-diff-regex="[^[:space:]]"
 	rb = rebase -i --autosquash
 	sh = show --name-only
+	svu = !git update-ref refs/remotes/git-svn origin/master && git svn reset -r `git log -1 git-svn | sed -n -e 's/^.*svn@\\(.*\\) .*$/\\1/pg'`
 [merge]
 	tool = bc3
 [mergetool "bc3"]
