@@ -45,6 +45,9 @@ map! <C-Space> <C-n>
 " Disable visual bell
 set vb t_vb=
 
+" Unix line endings
+set ff=unix
+
 set guioptions-=m
 set guioptions-=T
 colorscheme mywombat
