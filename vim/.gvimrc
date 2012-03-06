@@ -1,3 +1,5 @@
+source ~/.vimrc
+
 " Set default gui-font to 
 if has("win32") || has("win64")
 	set guifont=Droid_Sans_Mono:h8
