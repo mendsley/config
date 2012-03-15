@@ -13,3 +13,14 @@ ln -s "$ROOT/vim" ~/.vim
 # git configuration
 rm ~/.gitconfig
 ln -s "$ROOT/.gitconfig" ~/.gitconfig
+
+# fonts
+if [ ! -d ~/.fonts ]; then
+	mkdir ~/.fonts
+fi
+for f in $ROOT/fonts/*.ttf
+do
+	rm -f ~/.fonts/$(basename $f)
+	ln -s $f ~/.fonts/$(basename $f)
+done
+fc-cache -f -v
