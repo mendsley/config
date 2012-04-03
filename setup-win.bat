@@ -21,4 +21,8 @@ setlocal
 	del %HOME%\.gitconfig
 	mklink %HOME%\.gitconfig "%ROOT%\.gitconfig"
 
+	:: hg configuration
+	del %HOME%\.hgrc
+	mklink %HOME%\.hgrc "%ROOT%\.hgrc"
+
 endlocal
