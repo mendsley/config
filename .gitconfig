@@ -31,6 +31,7 @@
 	keepbackup = false
 	keeptemporaries = false
 [core]
+	eol = lf
 	autocrlf = false
 	hideDotFiles = dotGitOnly
 [difftool]
