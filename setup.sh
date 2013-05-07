@@ -10,6 +10,10 @@ ln -s "$ROOT/vim/.vimrc" ~/.vimrc
 ln -s "$ROOT/vim/.gvimrc" ~/.gvimrc
 ln -s "$ROOT/vim" ~/.vim
 
+# i3 configuration
+rm -rf ~/.i3
+ln -s "$ROOT/.i3" ~/.i3
+
 # git configuration
 rm ~/.gitconfig
 ln -s "$ROOT/.gitconfig" ~/.gitconfig
