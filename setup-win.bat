@@ -1,6 +1,8 @@
 @echo off
 setlocal
 
+	call git.cmd submodule update --init
+
 	set "ROOT=%~dp0"
 	set "HOME=%USERPROFILE%"
 

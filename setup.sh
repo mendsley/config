@@ -1,5 +1,7 @@
 #!/bin/bash
 
+git submodule update --init
+
 ROOT="$( cd -P "$( dirname "$0" )" && pwd )"
 
 # vim/gvim configuration
