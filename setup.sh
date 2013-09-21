@@ -12,6 +12,10 @@ ln -s "$ROOT/vim/.vimrc" ~/.vimrc
 ln -s "$ROOT/vim/.gvimrc" ~/.gvimrc
 ln -s "$ROOT/vim" ~/.vim
 
+# gem configuration
+rm ~/.gemrc
+ln -s "$ROOT/.gemrc" ~/
+
 # i3 configuration
 rm -rf ~/.i3
 rm -rf ~/.i3status.conf
