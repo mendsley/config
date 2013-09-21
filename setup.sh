@@ -14,7 +14,9 @@ ln -s "$ROOT/vim" ~/.vim
 
 # i3 configuration
 rm -rf ~/.i3
+rm -rf ~/.i3status.conf
 ln -s "$ROOT/.i3" ~/.i3
+ln -s "$ROOT/.i3status.conf" ~/
 
 # git configuration
 rm ~/.gitconfig
