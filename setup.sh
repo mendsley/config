@@ -12,6 +12,14 @@ ln -s "$ROOT/vim/.vimrc" ~/.vimrc
 ln -s "$ROOT/vim/.gvimrc" ~/.gvimrc
 ln -s "$ROOT/vim" ~/.vim
 
+# SSH configuration
+if [ ! -d ~/.ssh ]; then
+	mkdir ~/.ssh
+	chmod 0700 ~/.ssh
+fi
+rm -f ~/.ssh/config
+ln -s "$ROOT/ssh_config" ~/.ssh/config
+
 # gem configuration
 rm ~/.gemrc
 ln -s "$ROOT/.gemrc" ~/
