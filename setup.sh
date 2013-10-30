@@ -11,6 +11,7 @@ rm ~/.gvimrc
 ln -s "$ROOT/vim/.vimrc" ~/.vimrc
 ln -s "$ROOT/vim/.gvimrc" ~/.gvimrc
 ln -s "$ROOT/vim" ~/.vim
+ls -s "$ROOT/toggleTrackpad.sh" ~/
 
 # SSH configuration
 if [ ! -d ~/.ssh ]; then
