@@ -7,6 +7,8 @@ else
     set directory=/tmp
 end
 
+let mapleader=";"
+
 " Use shell's slashes
 set shellslash
 
@@ -63,3 +65,5 @@ nnoremap <leader>f :NERDTreeFind<CR>
 
 set incsearch
 set virtualedit=all
+
+imap ,, <Esc>
