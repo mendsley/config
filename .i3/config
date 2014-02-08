@@ -21,6 +21,10 @@ exec /usr/bin/gnome-keyring-daemon --start --components=secrets
 exec /usr/bin/gnome-keyring-daemon --start --components=ssh
 exec /usr/bin/gnome-keyring-daemon --start --components=pkcs11
 
+# system tray applets
+exec gnome-sound-applet
+exec nm-applet
+
 # font for window titles. ISO 10646 = Unicode
 font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
 
