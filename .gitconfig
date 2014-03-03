@@ -43,3 +43,5 @@
 	rmdir = true
 [am]
 	keepcr = true
+[push]
+	default = simple
