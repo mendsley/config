@@ -52,7 +52,7 @@ set ff=unix
 
 set guioptions-=m
 set guioptions-=T
-colorscheme mywombat
+colorscheme jellybeans
 
 nnoremap <A-w><A-w> :wincmd w<CR>
 nnoremap <A-W><A-W> :wincmd W<CR>
