@@ -73,3 +73,5 @@ filetype plugin indent off
 set runtimepath+=$GOROOT/misc/vim
 filetype plugin indent on
 syntax on
+
+autocmd FileType go autocmd BufWritePre <buffer> Fmt
