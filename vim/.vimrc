@@ -52,7 +52,7 @@ set ff=unix
 
 set guioptions-=m
 set guioptions-=T
-colorscheme mywombat
+colorscheme jellybeans
 
 nnoremap <A-w><A-w> :wincmd w<CR>
 nnoremap <A-W><A-W> :wincmd W<CR>
@@ -67,3 +67,11 @@ set incsearch
 set virtualedit=all
 
 imap ,, <Esc>
+
+filetype off
+filetype plugin indent off
+set runtimepath+=$GOROOT/misc/vim
+filetype plugin indent on
+syntax on
+
+autocmd FileType go autocmd BufWritePre <buffer> Fmt
