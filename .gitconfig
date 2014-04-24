@@ -8,7 +8,7 @@
 	df = diff --color
 	dt = difftool
 	mt = mergetool
-	s = status
+	s = status -sb
 	ca = commit --amend
 	rc = rebase --continue
 	lol = log --graph --decorate --pretty=oneline --abbrev-commit --color
