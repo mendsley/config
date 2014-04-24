@@ -9,7 +9,8 @@
 	dt = difftool
 	mt = mergetool
 	s = status -sb
-	ca = commit --amend
+	ca = commit --amend --verbose
+	c = commit --verbose
 	rc = rebase --continue
 	lol = log --graph --decorate --pretty=oneline --abbrev-commit --color
 	lola = log --graph --decorate --pretty=oneline --abbrev-commit --all --color
