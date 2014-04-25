@@ -7,6 +7,7 @@ else
 	set guifont=Ubuntu\ Mono\ 12
 end
 
+colorscheme jellybeans
 set guioptions+=c
 set guioptions-=l
 set guioptions-=L
