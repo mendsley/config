@@ -52,7 +52,11 @@ set ff=unix
 
 set guioptions-=m
 set guioptions-=T
-colorscheme jellybeans
+if has("win32") || has("win64")
+	colorscheme wombat256
+else
+	colorscheme jellybeans
+end
 
 nnoremap <A-w><A-w> :wincmd w<CR>
 nnoremap <A-W><A-W> :wincmd W<CR>
