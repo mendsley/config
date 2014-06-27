@@ -74,6 +74,8 @@ imap ,, <Esc>
 
 " Map <leader><leader>w to <leader>w -- easymotion
 map <leader>w <leader><leader>w
+" Map <leader><leader>b to <leader>b -- easymotion
+map <leader>b <leader><leader>b
 
 filetype off
 filetype plugin indent off
