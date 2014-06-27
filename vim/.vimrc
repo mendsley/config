@@ -72,6 +72,9 @@ set virtualedit=all
 
 imap ,, <Esc>
 
+" Map <leader><leader>w to <leader>w -- easymotion
+map <leader>w <leader><leader>w
+
 filetype off
 filetype plugin indent off
 set runtimepath+=$GOROOT/misc/vim
