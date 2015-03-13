@@ -10,3 +10,6 @@
 [submodule "vim/bundle/vim-clang"]
 	path = vim/bundle/vim-clang
 	url = https://github.com/justmao945/vim-clang.git
+[submodule "vim/bundle/vim-go"]
+	path = vim/bundle/vim-go
+	url = https://github.com/fatih/vim-go.git
