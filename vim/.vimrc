@@ -77,6 +77,9 @@ map <leader>w <leader><leader>w
 " Map <leader><leader>b to <leader>b -- easymotion
 map <leader>b <leader><leader>b
 
+" clang-vim options
+let g:clang_cpp_options='-std=c++11'
+
 filetype off
 filetype plugin indent off
 set runtimepath+=$GOROOT/misc/vim
