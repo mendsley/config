@@ -80,14 +80,6 @@ map <leader>b <leader><leader>b
 " clang-vim options
 let g:clang_cpp_options='-std=c++11'
 
-filetype off
-filetype plugin indent off
-set runtimepath+=$GOROOT/misc/vim
-filetype plugin indent on
-syntax on
-
-autocmd FileType go autocmd BufWritePre <buffer> Fmt
-
 " Utility to delete all inactive buffers
 function! DeleteInactiveBufs()
     "From tabpagebuflist() help, get a list of all buffers in all tabs
