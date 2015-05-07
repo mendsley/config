@@ -1,2 +1,4 @@
 GSSAPIAuthentication=no
 
+Host *.carbongames.com
+	UserKnownHostsFile=~/.ssh/known_hosts_carbongames
