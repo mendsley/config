@@ -80,6 +80,8 @@ map <leader>b <leader><leader>b
 " clang-vim options
 let g:clang_cpp_options='-std=c++11'
 
+let g:go_bin_path = expand("~/.gotools")
+
 " Utility to delete all inactive buffers
 function! DeleteInactiveBufs()
     "From tabpagebuflist() help, get a list of all buffers in all tabs
