@@ -47,3 +47,5 @@
 	keepcr = true
 [push]
 	default = simple
+[pack]
+	packSizeLimit=3g
