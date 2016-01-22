@@ -5,42 +5,42 @@ git submodule update --init
 ROOT="$( cd -P "$( dirname "$0" )" && pwd )"
 
 # vim/gvim configuration
-rm -rf ~/.vim
-rm ~/.vimrc
-rm ~/.gvimrc
-ln -s "$ROOT/vim/.vimrc" ~/.vimrc
-ln -s "$ROOT/vim/.gvimrc" ~/.gvimrc
-ln -s "$ROOT/vim" ~/.vim
+rm -rf $HOME/.vim
+rm $HOME/.vimrc
+rm $HOME/.gvimrc
+ln -s "$ROOT/vim/.vimrc" $HOME/.vimrc
+ln -s "$ROOT/vim/.gvimrc" $HOME/.gvimrc
+ln -s "$ROOT/vim" $HOME/.vim
 
 # SSH configuration
-if [ ! -d ~/.ssh ]; then
-	mkdir ~/.ssh
-	chmod 0700 ~/.ssh
+if [ ! -d $HOME/.ssh ]; then
+	mkdir $HOME/.ssh
+	chmod 0700 $HOME/.ssh
 fi
-rm -f ~/.ssh/config
-ln -s "$ROOT/ssh_config" ~/.ssh/config
+rm -f $HOME/.ssh/config
+ln -s "$ROOT/ssh_config" $HOME/.ssh/config
 
 # gem configuration
-rm ~/.gemrc
-ln -s "$ROOT/.gemrc" ~/
+rm $HOME/.gemrc
+ln -s "$ROOT/.gemrc" $HOME/
 
 # i3 configuration
-rm -rf ~/.i3
-rm -rf ~/.i3status.conf
-ln -s "$ROOT/.i3" ~/.i3
-ln -s "$ROOT/.i3status.conf" ~/
+rm -rf $HOME/.i3
+rm -rf $HOME/.i3status.conf
+ln -s "$ROOT/.i3" $HOME/.i3
+ln -s "$ROOT/.i3status.conf" $HOME/
 
 # git configuration
-rm ~/.gitconfig
-ln -s "$ROOT/.gitconfig" ~/.gitconfig
+rm $HOME/.gitconfig
+ln -s "$ROOT/.gitconfig" $HOME/.gitconfig
 
 # fonts
-if [ ! -d ~/.fonts ]; then
-	mkdir ~/.fonts
+if [ ! -d $HOME/.fonts ]; then
+	mkdir $HOME/.fonts
 fi
 for f in $ROOT/fonts/*.ttf
 do
-	rm -f ~/.fonts/$(basename $f)
-	ln -s $f ~/.fonts/$(basename $f)
+	rm -f $HOME/.fonts/$(basename $f)
+	ln -s $f $HOME/.fonts/$(basename $f)
 done
 fc-cache -f -v
