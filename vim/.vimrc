@@ -81,6 +81,7 @@ map <leader>b <leader><leader>b
 let g:clang_cpp_options='-std=c++11'
 
 let g:go_bin_path = expand("~/.gotools")
+let g:go_fmt_path = "goimports"
 
 " Utility to delete all inactive buffers
 function! DeleteInactiveBufs()
