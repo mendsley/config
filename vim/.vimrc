@@ -80,6 +80,7 @@ map <leader>b <leader><leader>b
 " clang-vim options
 let g:clang_cpp_options='-std=c++11'
 
+set mmp=2000
 let g:go_bin_path = expand("~/.gotools")
 let g:go_fmt_command = "goimports"
 
