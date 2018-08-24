@@ -105,3 +105,8 @@ function! DeleteInactiveBufs()
     echomsg nWipeouts . ' buffer(s) wiped out'
 endfunction
 command! Bdi :call DeleteInactiveBufs()
+
+" Default line endings
+set fileformat=unix
+set fileformats=unix,dos
+"set nobinary
