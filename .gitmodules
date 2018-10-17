@@ -13,3 +13,9 @@
 [submodule "vim/bundle/editorconfig-vim"]
 	path = vim/bundle/editorconfig-vim
 	url = git://github.com/editorconfig/editorconfig-vim
+[submodule "vim/bundle/kotlin-vim"]
+	path = vim/bundle/kotlin-vim
+	url = git://github.com/udalov/kotlin-vim
+[submodule "vim/bundle/vim-localrc"]
+	path = vim/bundle/vim-localrc
+	url = git://github.com/thinca/vim-localrc
