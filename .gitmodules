@@ -19,3 +19,6 @@
 [submodule "vim/bundle/vim-localrc"]
 	path = vim/bundle/vim-localrc
 	url = git://github.com/thinca/vim-localrc
+[submodule "vim/bundle/vim-ripgrep"]
+	path = vim/bundle/vim-ripgrep
+	url = git://github.com/jremmen/vim-ripgrep
