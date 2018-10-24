@@ -110,3 +110,5 @@ command! Bdi :call DeleteInactiveBufs()
 set fileformat=unix
 set fileformats=unix,dos
 "set nobinary
+
+autocmd FileType gitcommit setlocal spell
