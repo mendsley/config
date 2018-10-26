@@ -220,7 +220,9 @@ fun <SID>X(group, fg, bg, attr)
 	if a:fg != ""
 		exec "hi ".a:group." guifg=#".a:fg." ctermfg=".<SID>rgb(a:fg)
 	endif
-	if a:bg != ""
+	if a:bg == "none"
+		exec "hi ".a:group." guibg=NONE ctermbg=NONE"
+	elseif a:bg != ""
 		exec "hi ".a:group." guibg=#".a:bg." ctermbg=".<SID>rgb(a:bg)
 	endif
 	if a:attr != ""
@@ -242,7 +244,7 @@ call <SID>X("CursorColumn",	"",			"2d2d2d",	"")
 			"IncSearch
 call <SID>X("Search",		"444444",	"af87d7",	"")
 call <SID>X("MatchParen",	"ecee90",	"857b6f",	"bold")
-call <SID>X("SpecialKey",	"6c6c6c",	"2d2d2d",	"none")
+call <SID>X("SpecialKey",	"grey20",	"none",		"none")
 call <SID>X("Visual",		"ecee90",	"597418",	"none")
 call <SID>X("LineNr",		"857b6f",	"121212",	"none")
 call <SID>X("Folded",		"a0a8b0",	"404048",	"none")

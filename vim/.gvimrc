@@ -14,3 +14,6 @@ set guioptions-=L
 set guioptions-=r
 set guioptions-=R
 set guioptions-=b
+
+set listchars=space:·,tab:»\ 
+set list
