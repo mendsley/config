@@ -112,3 +112,5 @@ set fileformats=unix,dos
 "set nobinary
 
 autocmd FileType gitcommit setlocal spell textwidth=72
+
+set encoding=utf-8
