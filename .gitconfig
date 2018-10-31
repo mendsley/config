@@ -39,6 +39,7 @@
 	eol = lf
 	autocrlf = false
 	hideDotFiles = dotGitOnly
+	pager = "less -x1,5"
 [difftool]
 	prompt = false
 [svn]
