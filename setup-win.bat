@@ -27,4 +27,14 @@ setlocal
 	del %HOME%\.hgrc
 	mklink %HOME%\.hgrc "%ROOT%\.hgrc"
 
+	:: GPG configuration
+	mkdir "%APPDATA%\gnupg"
+	echo enable-putty-support> "%APPDATA%\gnupg\gpg-agent.conf"
+	echo allow-loopback-pinentry>> "%APPDATA%\gnupg\gpg-agent.conf"
+	echo default-cache-ttl 86400>> "%APPDATA%\gnupg\gpg-agent.conf"
+	echo default-cache-ttl-ssh 86400>> "%APPDATA%\gnupg\gpg-agent.conf"
+
+	echo use-agent> "%APPDATA%\gnupg\gpg.conf"
+	echo pinentry-mode loopback>> "%APPDATA%\gnupg\gpg.conf"
+
 endlocal

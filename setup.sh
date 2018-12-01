@@ -34,6 +34,21 @@ ln -s "$ROOT/.i3status.conf" $HOME/
 rm $HOME/.gitconfig
 ln -s "$ROOT/.gitconfig" $HOME/.gitconfig
 
+# PGP configuration
+mkdir -p "$HOME/.config/autostart"
+cp /etc/xdg/autostart/gnome-keyring-ssh.desktop "$HOME/.config/autostart/"
+echo "Hidden=true" >> "$HOME/.config/autostart/gnome-keyring-ssh.desktop"
+
+mkdir -p "$HOME/.gnupg"
+chmod 0700 "$HOME/.gnupg"
+if ! grep -q "use-agent" "$HOME/.gnupg/gpg.conf"; then
+	echo "use-agent" >> "$HOME/.gnupg/gpg.conf"
+fi
+if ! grep -q "enable-ssh-support" "$HOME/.gnupg/gpg-agent.conf"; then
+	echo "enable-ssh-support" >> "$HOME/.gnupg/gpg-agent.conf"
+fi
+
+
 # fonts
 if [ ! -d $HOME/.fonts ]; then
 	mkdir $HOME/.fonts
