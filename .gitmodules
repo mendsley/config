@@ -12,13 +12,13 @@
 	url = https://github.com/fatih/vim-go.git
 [submodule "vim/bundle/editorconfig-vim"]
 	path = vim/bundle/editorconfig-vim
-	url = git://github.com/editorconfig/editorconfig-vim
+	url = https://github.com/editorconfig/editorconfig-vim
 [submodule "vim/bundle/kotlin-vim"]
 	path = vim/bundle/kotlin-vim
-	url = git://github.com/udalov/kotlin-vim
+	url = https://github.com/udalov/kotlin-vim
 [submodule "vim/bundle/vim-localrc"]
 	path = vim/bundle/vim-localrc
-	url = git://github.com/thinca/vim-localrc
+	url = https://github.com/thinca/vim-localrc
 [submodule "vim/bundle/vim-ripgrep"]
 	path = vim/bundle/vim-ripgrep
-	url = git://github.com/jremmen/vim-ripgrep
+	url = https://github.com/jremmen/vim-ripgrep
