@@ -22,3 +22,6 @@
 [submodule "vim/bundle/vim-ripgrep"]
 	path = vim/bundle/vim-ripgrep
 	url = https://github.com/jremmen/vim-ripgrep
+[submodule "vim/bundle/vim-shader"]
+	path = vim/bundle/vim-shader
+	url = https://github.com/vim-scripts/ShaderHighLight
