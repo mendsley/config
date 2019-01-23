@@ -5,7 +5,7 @@
 	ui = always
 [alias]
 	lp = log --pretty=format:'%C(yellow dim)%h%Creset %C(cyan)%an%Creset %s'
-	df = diff --color
+	df = diff --word-diff=color
 	dt = difftool
 	mt = mergetool
 	s = status -sb
