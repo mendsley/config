@@ -106,6 +106,8 @@ function! DeleteInactiveBufs()
 endfunction
 command! Bdi :call DeleteInactiveBufs()
 
+autocmd BufNewFile,BufRead *.compute set filetype=hlsl
+
 " Default line endings
 set fileformat=unix
 set fileformats=unix,dos
