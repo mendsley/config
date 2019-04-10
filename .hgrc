@@ -3,3 +3,7 @@ username = Matthew Endsley <mendsley@gmail.com>
 
 [extensions]
 mq =
+purge =
+eol =
+rebase =
+strip =
