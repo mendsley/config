@@ -2,7 +2,7 @@ source ~/.vimrc
 
 " Set default gui-font to 
 if has("win32") || has("win64")
-	set guifont=Ubuntu_Mono:h10
+	set guifont=Essential\ PragmataPro:h10,Ubuntu_Mono:h10,Consolas:h10
 else
 	set guifont=Ubuntu\ Mono\ 12
 end
