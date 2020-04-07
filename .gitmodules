@@ -25,3 +25,6 @@
 [submodule "vim/bundle/vim-shader"]
 	path = vim/bundle/vim-shader
 	url = https://github.com/vim-scripts/ShaderHighLight
+[submodule "vim/bundle/rust.vim"]
+	path = vim/bundle/rust.vim
+	url = https://github.com/rust-lang/rust.vim.git
