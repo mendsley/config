@@ -1,5 +1,7 @@
 " Matt's vim settings
 
+filetype plugin on
+
 " Use system TEMP directory for swap files
 if has("win32") || has("win64")
     set directory=$TMP
@@ -83,6 +85,8 @@ let g:clang_cpp_options='-std=c++11'
 set mmp=2000
 let g:go_bin_path = expand("~/.gotools")
 let g:go_fmt_command = "goimports"
+
+let g:rustfmt_autosave = 1
 
 " Utility to delete all inactive buffers
 function! DeleteInactiveBufs()
