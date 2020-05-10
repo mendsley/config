@@ -3,6 +3,12 @@
 	email = mendsley@gmail.com
 [color]
 	ui = always
+[color.diff]
+	new = green bold
+[color.status]
+	updated = green bold
+[color.branch]
+	current = green bold
 [alias]
 	lp = log --pretty=format:'%C(yellow dim)%h%Creset %C(cyan)%an%Creset %s'
 	df = diff --word-diff=color
