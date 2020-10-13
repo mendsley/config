@@ -46,6 +46,7 @@
 	autocrlf = false
 	hideDotFiles = dotGitOnly
 	pager = "less -x1,5"
+	longpaths = true
 [difftool]
 	prompt = false
 [svn]
