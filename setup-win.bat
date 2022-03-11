@@ -37,4 +37,8 @@ setlocal
 	echo use-agent> "%APPDATA%\gnupg\gpg.conf"
 	echo pinentry-mode loopback>> "%APPDATA%\gnupg\gpg.conf"
 
+	:: SSH Agent configuration
+	if not exist "%HOME%\.ssh" mkdir "%HOME%\.ssh
+	setx SSH_AUTH_SOCK "%HOME%\.ssh\auth_sock"
+
 endlocal
