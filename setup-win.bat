@@ -28,7 +28,7 @@ setlocal
 	mklink %HOME%\.hgrc "%ROOT%\.hgrc"
 
 	:: GPG configuration
-	mkdir "%APPDATA%\gnupg"
+	if not exist "%APPDATA%\gnupg" mkdir "%APPDATA%\gnupg"
 	echo enable-putty-support> "%APPDATA%\gnupg\gpg-agent.conf"
 	echo allow-loopback-pinentry>> "%APPDATA%\gnupg\gpg-agent.conf"
 	echo default-cache-ttl 86400>> "%APPDATA%\gnupg\gpg-agent.conf"
