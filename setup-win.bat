@@ -11,7 +11,6 @@ setlocal
 	del %HOME%\.gvimrc 1>nul 2>nul
 	del %HOME%\_gvimrc 1>nul 2>nul
 	del %HOME%\_vimrc 1>nul 2>nul
-	del %HOME%\.ssh\config 1>nul 2>nul
 	rmdir /s /q %HOME%\.vim 1>nul 2>nul
 	rmdir /s /q %HOME%\vimfiles 1>nul 2>nul
 	mklink %HOME%\.vimrc "%ROOT%\vim\.vimrc"
@@ -20,8 +19,9 @@ setlocal
 	mklink %HOME%\_vimrc "%HOME%\.vimrc"
 	mklink /D %HOME%\vimfiles "%HOME%\.vim"
 
+	del %HOME%\.ssh\config 1>nul 2>nul
 	mkdir %HOME%\.ssh 1>nul 2>nul
-	mklink /D %HOME%\.ssh\config %ROOT%\ssh_config
+	mklink %HOME%\.ssh\config %ROOT%\ssh_config
 
 	:: git configuration
 	del %HOME%\.gitconfig

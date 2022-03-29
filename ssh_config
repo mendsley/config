@@ -1,2 +1,4 @@
 GSSAPIAuthentication=no
 
+Host github.com
+	UpdateHostKeys yes
