@@ -3,6 +3,7 @@
 	email = mendsley@gmail.com
 [color]
 	ui = always
+	fsmonitor = true
 [color.diff]
 	new = green bold
 [color.status]
