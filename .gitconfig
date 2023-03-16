@@ -58,3 +58,5 @@
 	default = simple
 [pack]
 	packSizeLimit=3g
+[credential "https://lfscache.office.playeveryware.com"]
+	provider = github
