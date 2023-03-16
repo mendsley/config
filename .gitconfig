@@ -60,3 +60,5 @@
 	packSizeLimit=3g
 [credential "https://lfscache.office.playeveryware.com"]
 	provider = github
+[gpg]
+	program = C:\\Program Files (x86)\\GnuPG\\bin\\gpg.exe
