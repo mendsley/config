@@ -29,6 +29,7 @@
 	assume = update-index --assume-unchanged
 	unassume = update-index --no-assume-unchanged
 	assumed = "!git ls-files -v | grep ^h | cut -c 3-"
+	bc = "!git branch --color=never --merged | grep -v \\* | xargs git branch -d"
 [merge]
 	tool = bc3
 	defaultToUpstream = true
