@@ -34,3 +34,6 @@
 [submodule "vim/bundle/vim-ps1"]
 	path = vim/bundle/vim-ps1
 	url = https://github.com/PProvost/vim-ps1.git
+[submodule "vim/pack/vim-hcl"]
+	path = vim/pack/vim-hcl
+	url = https://github.com/jvirtanen/vim-hcl.git
