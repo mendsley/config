@@ -37,3 +37,6 @@
 [submodule "vim/pack/vim-hcl"]
 	path = vim/pack/vim-hcl
 	url = https://github.com/jvirtanen/vim-hcl.git
+[submodule "vim/bundle/vim-zoom"]
+	path = vim/bundle/vim-zoom
+	url = https://github.com/dhruvasagar/vim-zoom
