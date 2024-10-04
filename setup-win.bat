@@ -45,4 +45,17 @@ setlocal
 	if not exist "%HOME%\.ssh" mkdir "%HOME%\.ssh
 	setx SSH_AUTH_SOCK "%HOME%\.ssh\auth_sock"
 
+	:: Install chocolately
+	powershell -Command "Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))"
+
+	:: Packages
+	choco install -y ^
+		7zip ^
+		gpg4win ^
+		dotnet dotnet-sdk ^
+		notepadplusplus ^
+		procexp ^
+		ripgrep ^
+		yubico-authenticator
+
 endlocal
