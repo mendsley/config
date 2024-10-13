@@ -58,7 +58,7 @@ setlocal
 		ripgrep ^
 		yubico-authenticator ^
 		dotnet3.5
-	choco install dotnet-6.0-sdk-4xx --version=6.0.413
-	choco install windows-sdk-11-version-22h2-all --version=10.0.22621.2
+	choco install -y dotnet-6.0-sdk-4xx --version=6.0.413
+	choco install -y windows-sdk-11-version-22h2-all --version=10.0.22621.2
 
 endlocal
