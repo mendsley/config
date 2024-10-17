@@ -19,6 +19,7 @@
 [submodule "vim/bundle/vim-localrc"]
 	path = vim/bundle/vim-localrc
 	url = https://github.com/thinca/vim-localrc
+	ignore = untracked
 [submodule "vim/bundle/vim-ripgrep"]
 	path = vim/bundle/vim-ripgrep
 	url = https://github.com/jremmen/vim-ripgrep
@@ -40,3 +41,4 @@
 [submodule "vim/bundle/vim-zoom"]
 	path = vim/bundle/vim-zoom
 	url = https://github.com/dhruvasagar/vim-zoom
+	ignore = untracked
