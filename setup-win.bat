@@ -49,16 +49,6 @@ setlocal
 	powershell -Command "Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))"
 
 	:: Packages
-	choco install -y ^
-		7zip ^
-		gpg4win ^
-		dotnet dotnet-sdk ^
-		notepadplusplus ^
-		procexp ^
-		ripgrep ^
-		yubico-authenticator ^
-		dotnet3.5
-	choco install -y dotnet-6.0-sdk-4xx --version=6.0.413
-	choco install -y windows-sdk-11-version-22h2-all --version=10.0.22621.2
+	choco install -y packages.config
 
 endlocal
