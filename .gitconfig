@@ -1,6 +1,8 @@
 [user]
 	name = Matthew Endsley
 	email = mendsley@gmail.com
+[init]
+	defaultBranch = main
 [color]
 	ui = always
 	fsmonitor = true
