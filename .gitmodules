@@ -42,3 +42,6 @@
 	path = vim/bundle/vim-zoom
 	url = https://github.com/dhruvasagar/vim-zoom
 	ignore = untracked
+[submodule "vim/bundle/vim-markdown"]
+	path = vim/bundle/vim-markdown
+	url = https://github.com/gabrielelana/vim-markdown
