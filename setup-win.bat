@@ -52,4 +52,9 @@ setlocal
 	:: Packages
 	choco install -y packages.config
 
+	:: Powershell
+	powershell -Command "Install-PackageProvider -Name NuGet -Force -Confirm:$false"
+	powershell -Command "Install-Module -Name posh-git -Force -Confirm:$false"
+
+
 endlocal
