@@ -54,4 +54,13 @@ setlocal
 	:: Packages
 	choco install -y packages.config
 
+	:: Cleanup Cmder
+	if defined CMDER_ROOT (
+		rmdir /s /q "%CMDER_ROOT%\vendor\git-for-windows"
+	)
+
+	if defined ChocolateyInstall (
+		"%ChocolateyInstall%\bin\RefreshEnv.cmd"
+	)
+
 endlocal
