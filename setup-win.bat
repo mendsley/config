@@ -60,7 +60,11 @@ setlocal
 	)
 
 	if defined ChocolateyInstall (
-		"%ChocolateyInstall%\bin\RefreshEnv.cmd"
+		call "%ChocolateyInstall%\bin\RefreshEnv.cmd"
 	)
+
+	git remote rm origin
+	git remote add origin git@github.com:mendsley/config
+	del "%GIT_INSTALL_ROOT%\usr\bin\vim.exe"
 
 endlocal
