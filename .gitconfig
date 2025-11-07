@@ -32,19 +32,6 @@
 	unassume = update-index --no-assume-unchanged
 	assumed = "!git ls-files -v | grep ^h | cut -c 3-"
 	bc = "!git remote prune origin && git branch --color=never --merged | grep -v \\* | xargs git branch -d"
-[merge]
-	tool = bc3
-	defaultToUpstream = true
-[mergetool "bc3"]
-	cmd = BComp.com \"$LOCAL\" \"$REMOTE\" \"$BASE\" \"$MERGED\"
-	trustExitCode = true
-[diff]
-	tool = bc3
-[difftool "bc3"]
-	cmd = BComp.com \"$LOCAL\" \"$REMOTE\"
-[mergetool]
-	keepbackup = false
-	keeptemporaries = false
 [core]
 	eol = lf
 	autocrlf = false
@@ -63,8 +50,9 @@
 	packSizeLimit=3g
 [credential "https://lfscache.office.playeveryware.com"]
 	provider = github
-[gpg]
-	program = C:\\Program Files (x86)\\GnuPG\\bin\\gpg.exe
 [commit]
 	gpgsign = true
 	cleanup = scissors
+
+[include]
+	path = ~/.gitconfig-windows

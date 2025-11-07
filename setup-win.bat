@@ -25,7 +25,9 @@ setlocal
 
 	:: git configuration
 	del %HOME%\.gitconfig
+	del %HOME%\.gitconfig-windows
 	mklink %HOME%\.gitconfig "%ROOT%\.gitconfig"
+	mklink %HOME%\.gitconfig-windows "%ROOT%\.gitconfig-windows"
 
 	:: hg configuration
 	del %HOME%\.hgrc
@@ -33,7 +35,8 @@ setlocal
 
 	:: GPG configuration
 	if not exist "%APPDATA%\gnupg" mkdir "%APPDATA%\gnupg"
-	echo enable-putty-support> "%APPDATA%\gnupg\gpg-agent.conf"
+	::echo enable-putty-support> "%APPDATA%\gnupg\gpg-agent.conf"
+	echo enable-win32-openssh-support>> "%APPDATA%\gnupg\gpg-agent.conf"
 	echo allow-loopback-pinentry>> "%APPDATA%\gnupg\gpg-agent.conf"
 	echo default-cache-ttl 86400>> "%APPDATA%\gnupg\gpg-agent.conf"
 	echo default-cache-ttl-ssh 86400>> "%APPDATA%\gnupg\gpg-agent.conf"
@@ -43,7 +46,6 @@ setlocal
 
 	:: SSH Agent configuration
 	if not exist "%HOME%\.ssh" mkdir "%HOME%\.ssh
-	setx SSH_AUTH_SOCK "%HOME%\.ssh\auth_sock"
 
 	:: Install chocolately
 	powershell -Command "Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))"
