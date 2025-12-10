@@ -21,7 +21,10 @@
 		"slack",
 		"neovim",
 		"neovide",
-		"sudo"
+		"sudo",
+		"alacritty",
+		"oh-my-posh",
+		"nerd-fonts/Meslo-NF"
 	],
 	"admin_packages": [
 		"openvpn"
@@ -30,6 +33,7 @@
 		"main",
 		"extras",
 		"versions",
-		"sysinternals"
+		"sysinternals",
+		"nerd-fonts"
 	]
 }
