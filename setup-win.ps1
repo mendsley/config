@@ -34,6 +34,15 @@ if ($AdminOnly) {
 		-Type DWord `
 		;
 
+	# Configure neovim
+	if (Test-Path -Path "$env:LOCALAPPDATA\nvim") {
+		Remove-Item -Force -Recurse -Path "$env:LOCALAPPDATA\nvim"
+	}
+	New-Item -ItemType 'SymbolicLink' `
+		-Path "$env:LOCALAPPDATA\nvim" `
+		-Target "$PSScriptRoot\nvim" `
+		| Out-Null
+
 	# Git configuration
 	Remove-Item -ErrorAction SilentlyContinue -Path "$env:USERPROFILE\.gitconfig" -Force
 	Remove-Item -ErrorAction SilentlyContinue -Path "$env:USERPROFILE\.gitconfig-windows" -Force
@@ -109,6 +118,8 @@ if (!$?) {
 	Write-Error "Failed to update git submodules"
 	exit 1
 }
+
+[System.Environment]::SetEnvironmentVariable('EDITOR', 'nvim', [System.EnvironmentVariableTarget]::User)
 
 # Install scoop
 if (-not (Get-Command scoop -ErrorAction SilentlyContinue)) {
