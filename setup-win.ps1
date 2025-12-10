@@ -221,6 +221,7 @@ pwsh -Command 'Install-Module posh-git -Scope CurrentUser -Force -Confirm:$false
 
 $poshGitCommand = "Import-Module posh-git"
 $ompCommand = "oh-my-posh init pwsh --config `"`$env:POSH_THEMES_PATH\multiverse-neon.omp.json`" | Invoke-Expression"
+$ompAfterPromptCommand = 'function RestoreCursorShape { $esc = [char]27; Write-Host "$esc[5 q" -NoNewLine; }; $env:OMP_AFTER_PROMPT = "RestoreCursorShape"'
 
 $profilePath =  pwsh -Command 'Write-Host $PROFILE.CurrentUserCurrentHost'
 $profileDir = Split-Path -Path $profilePath -Parent
@@ -234,11 +235,13 @@ if (Test-Path -Path $profilePath) {
 	$profileContent = Get-Content -Path $profilePath -Raw `
 		| Where-Object { $_ -notmatch 'oh-my-posh init pwsh' } `
 		| Where-Object { $_ -notmatch 'posh-git' } `
+		| Where-Object { $_ -notmatch 'OMP_AFTER_PROMPT' }`
 		;
 }
 
 $profileContent += "$ompCommand`n"
 $profileContent += "$poshGitCommand`n"
+$profileContent += "$ompAfterPromptCommand`n"
 
 $profileContent | Set-Content -Path $profilePath -Encoding UTF8
 
