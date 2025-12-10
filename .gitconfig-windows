@@ -4,14 +4,12 @@
 	tool = bc3
 	defaultToUpstream = true
 [mergetool "bc3"]
-	cmd = BComp.com \"$LOCAL\" \"$REMOTE\" \"$BASE\" \"$MERGED\"
+	cmd = BComp.exe \"$LOCAL\" \"$REMOTE\" \"$BASE\" \"$MERGED\"
 	trustExitCode = true
 [diff]
 	tool = bc3
 [difftool "bc3"]
-	cmd = BComp.com \"$LOCAL\" \"$REMOTE\"
+	cmd = BComp.exe \"$LOCAL\" \"$REMOTE\"
 [mergetool]
 	keepbackup = false
 	keeptemporaries = false
-[gpg]
-	program = C:\\Program Files (x86)\\GnuPG\\bin\\gpg.exe
