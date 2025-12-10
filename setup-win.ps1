@@ -4,6 +4,9 @@ param(
 
 $ErrorActionPreference = 'Stop'
 
+$goupVersion = "1.7.0"
+$goVersion = "1.25.5"
+
 # Check if we're running as administrator
 function Test-Administrator {
 	$currentUser = [Security.Principal.WindowsIdentity]::GetCurrent()
@@ -140,6 +143,42 @@ foreach ($package in $packagesJson.packages) {
 
 # GPG configuration
 New-Item -Path "$env:USERPROFILE\.gnupg" -ItemType Directory -Force | Out-Null
+
+# Setup goup (Go version manager)
+if (-not (Get-Command goup -ErrorAction SilentlyContinue)) {
+	Write-Host "Installing goup..."
+	$goupUrl = "https://github.com/zekroTJA/goup/releases/download/v$goupVersion/goup-v1.7.0-x86_64-pc-windows-msvc.exe"
+	$goupDir = "$env:USERPROFILE\.local\bin"
+	$groupPath = "$goupDir\goup.exe"
+
+	New-Item -ItemType Directory -Path $goupDir -Force | Out-Null
+	Invoke-WebRequest -Uri $goupUrl -OutFile $groupPath
+
+	# add to PATH
+	$currentPath = [Environment]::GetEnvironmentVariable("PATH", "User")
+	if ($currentPath -notlike "*$goupDir*") {
+		[Environment]::SetEnvironmentVariable("PATH", "$currentPath;$goupDir", "User")
+	}
+	$env:PATH += ";$goupDir"
+
+	# add go paths
+	$env:GOROOT = "$env:USERPROFILE\.local\goup\current\go"
+	[Environment]::SetEnvironmentVariable("GOROOT", $env:GOROOT, "User")
+
+	$goupGoPath = "$($env:GOROOT)\bin"
+	$currentPath = [Environment]::GetEnvironmentVariable("PATH", "User")
+	if ($currentPath -notlike "*$goupGoPath*") {
+		[Environment]::SetEnvironmentVariable("PATH", "$currentPath;$goupGoPath", "User")
+	}
+	$env:PATH += ";goupGoPath"
+}
+
+# Install go
+goup use $goVersion
+if (!$?) {
+	Write-Error "Failed to install go $goVersion"
+}
+
 
 # Cleanup after cmder
 if ($env:CMDER_ROOT) {
