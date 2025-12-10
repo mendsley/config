@@ -141,36 +141,6 @@ foreach ($package in $packagesJson.packages) {
 # GPG configuration
 New-Item -Path "$env:USERPROFILE\.gnupg" -ItemType Directory -Force | Out-Null
 
-# # Vim configuration
-# Remove-Item -ErrorAction SilentlyContinue -Path "$env:USERPROFILE\.vimrc" -Force
-# Remove-Item -ErrorAction SilentlyContinue -Path "$env:USERPROFILE\.gvimrc" -Force
-# Remove-Item -ErrorAction SilentlyContinue -Path "$env:USERPROFILE\_vimrc" -Force
-# Remove-Item -ErrorAction SilentlyContinue -Path "$env:USERPROFILE\_gvimrc" -Force
-# Remove-Item -ErrorAction SilentlyContinue -Path "$env:USERPROFILE\.vim" -Recurse -Force
-# Remove-Item -ErrorAction SilentlyContinue -Path "$env:USERPROFILE\vimfiles" -Recurse -Force
-# New-Item -ItemType 'SymbolicLink' `
-# 	-Path "$env:USERPROFILE\.vimrc" `
-# 	-Target "$PSScriptRoot\vim\.vimrc" | Out-Null
-# New-Item -ItemType 'SymbolicLink' `
-# 	-Path "$env:USERPROFILE\.gvimrc" `
-# 	-Target "$PSScriptRoot\vim\.gvimrc" | Out-Null
-# New-Item -ItemType 'SymbolicLink' `
-# 	-Path "$env:USERPROFILE\_vimrc" `
-# 	-Target "$PSScriptRoot\vim\.vimrc" | Out-Null
-# New-Item -ItemType 'SymbolicLink' `
-# 	-Path "$env:USERPROFILE\.vim" `
-# 	-Target "$PSScriptRoot\vim" | Out-Null
-# New-Item -ItemType 'SymbolicLink' `
-# 	-Path "$env:USERPROFILE\vimfiles" `
-# 	-Target "$PSScriptRoot\vim" | Out-Null
-
-
-# # Hg configuration
-# Remove-Item -ErrorAction SilentlyContinue -Path "$env:USERPROFILE\.hgrc" -Force
-# New-Item -ItemType 'SymbolicLink' `
-# 	-Path "$env:USERPROFILE\.hgrc" `
-# 	-Target "$PSScriptRoot\.hgrc"
-
 # Cleanup after cmder
 if ($env:CMDER_ROOT) {
 	$vendoredGitPath = "$env:CMDER_ROOT\vendor\git-for-windows"
