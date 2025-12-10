@@ -214,13 +214,14 @@ if (Test-Path -Path $wtSettingsPath) {
 		;
 }
 
-# Setup oh-my-posh
+# Setup oh-my-posh/posh-git
+pwsh -Command 'Install-Module posh-git -Scope CurrentUser -Force -Confirm:$false -AllowClobber'
+
+$poshGitCommand = "Import-Module posh-git"
 $ompCommand = "oh-my-posh init pwsh --config `"`$env:POSH_THEMES_PATH\multiverse-neon.omp.json`" | Invoke-Expression"
 
 $profilePath =  pwsh -Command 'Write-Host $PROFILE.CurrentUserCurrentHost'
 $profileDir = Split-Path -Path $profilePath -Parent
-Write-Host "Profile path: $profilePath"
-Write-Host "Profile dir: $profileDir"
 
 if (-not (Test-Path $profileDir)) {
 	New-Item -ItemType Directory -Path $profileDir -Force | Out-Null
@@ -230,13 +231,13 @@ $profileContent = @("")
 if (Test-Path -Path $profilePath) {
 	$profileContent = Get-Content -Path $profilePath -Raw `
 		| Where-Object { $_ -notmatch 'oh-my-posh init pwsh' } `
+		| Where-Object { $_ -notmatch 'posh-git' } `
 		;
 }
 
-$profileContent += $ompCommand
+$profileContent += "$ompCommand`n"
+$profileContent += "$poshGitCommand`n"
 
-Write-Host "CONTENT`n$profileContent`n"
-Write-Host $profilePath
 $profileContent | Set-Content -Path $profilePath -Encoding UTF8
 
 # Replace origin
