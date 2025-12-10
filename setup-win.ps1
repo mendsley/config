@@ -215,6 +215,8 @@ if (Test-Path -Path $wtSettingsPath) {
 }
 
 # Setup oh-my-posh/posh-git
+pwsh -Command 'oh-my-posh font install meslo'
+
 pwsh -Command 'Install-Module posh-git -Scope CurrentUser -Force -Confirm:$false -AllowClobber'
 
 $poshGitCommand = "Import-Module posh-git"
