@@ -23,8 +23,7 @@
 		"neovide",
 		"sudo",
 		"alacritty",
-		"oh-my-posh",
-		"nerd-fonts/Meslo-NF"
+		"oh-my-posh"
 	],
 	"admin_packages": [
 		"openvpn"
