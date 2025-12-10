@@ -6,6 +6,7 @@ $ErrorActionPreference = 'Stop'
 
 $goupVersion = "1.7.0"
 $goVersion = "1.25.5"
+$ompTheme = "multiverse-neon"
 
 # Check if we're running as administrator
 function Test-Administrator {
@@ -183,17 +184,60 @@ if (!$?) {
 	Write-Error "Failed to install go $goVersion"
 }
 
+# Setup windows terminal to use pwsh
+$wtSettingsPath = "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
+if (Test-Path -Path $wtSettingsPath) {
 
-# Cleanup after cmder
-if ($env:CMDER_ROOT) {
-	$vendoredGitPath = "$env:CMDER_ROOT\vendor\git-for-windows"
-	if (Test-Path -Path $vendoredGitPath) {
-		Remove-Item -Force -Recurse -Path $vendoredGitPath
+	$settings = Get-Content -Path $wtSettingsPath -Raw -Encoding UTF8 `
+		| ConvertFrom-Json `
+		;
+
+	$settings.defaultProfile = "{574e775e-4f2a-5b96-ac1e-a2962a402336}"
+
+	$fontConfig = @{
+		face = "MesloLGM Nerd Font"
+		size = 10
+		fontWeight = "normal"
+		useAcrylic = $true
 	}
+	Add-Member `
+		-Force `
+		-InputObject $settings.profiles.defaults `
+		-MemberType NoteProperty `
+		-Name "font" `
+		-Value $fontConfig `
+		;
+
+	$settings `
+		| ConvertTo-Json -Depth 10 `
+		| Set-Content -Path $wtSettingsPath -Encoding UTF8 `
+		;
 }
-if ($env:ChocolateyInstall) {
-	& "$env:ChocolateyInstall\bin\RefreshEnv.cmd"
+
+# Setup oh-my-posh
+$ompCommand = "oh-my-posh init pwsh --config `"`$env:POSH_THEMES_PATH\multiverse-neon.omp.json`" | Invoke-Expression"
+
+$profilePath =  pwsh -Command 'Write-Host $PROFILE.CurrentUserCurrentHost'
+$profileDir = Split-Path -Path $profilePath -Parent
+Write-Host "Profile path: $profilePath"
+Write-Host "Profile dir: $profileDir"
+
+if (-not (Test-Path $profileDir)) {
+	New-Item -ItemType Directory -Path $profileDir -Force | Out-Null
 }
+
+$profileContent = @("")
+if (Test-Path -Path $profilePath) {
+	$profileContent = Get-Content -Path $profilePath -Raw `
+		| Where-Object { $_ -notmatch 'oh-my-posh init pwsh' } `
+		;
+}
+
+$profileContent += $ompCommand
+
+Write-Host "CONTENT`n$profileContent`n"
+Write-Host $profilePath
+$profileContent | Set-Content -Path $profilePath -Encoding UTF8
 
 # Replace origin
 git remote rm origin
