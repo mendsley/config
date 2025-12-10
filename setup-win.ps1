@@ -1,7 +1,108 @@
+param(
+	[switch]$AdminOnly
+)
+
 $ErrorActionPreference = 'Stop'
 
-# Switch local machine policy
-Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope LocalMachine
+# Check if we're running as administrator
+function Test-Administrator {
+	$currentUser = [Security.Principal.WindowsIdentity]::GetCurrent()
+	$principal = New-Object Security.Principal.WindowsPrincipal($currentUser)
+	$principal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
+}
+
+# Run administrator tasks first
+if (-not (Test-Administrator)) {
+	Write-Host "Elevating to run admin commands..."
+	$adminScript = "-File $($PSCommandPath) -AdminOnly"
+	Start-Process -Wait -Verb RunAs powershell.exe -ArgumentList $adminScript
+}
+
+if ($AdminOnly) {
+	# Switch local machine policy
+	Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope LocalMachine
+
+	# Enable developer mode
+	$devModePath = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModelUnlock"
+	if (-not (Test-Path -Path $devModePath)) {
+		New-Item -Path $devModePath -Force | Out-Null
+	}
+	Set-ItemProperty `
+		-Path $devModePath `
+		-Name AllowDevelopmentWithoutDevLicense `
+		-Value 1 `
+		-Type DWord `
+		;
+
+	# Git configuration
+	Remove-Item -ErrorAction SilentlyContinue -Path "$env:USERPROFILE\.gitconfig" -Force
+	Remove-Item -ErrorAction SilentlyContinue -Path "$env:USERPROFILE\.gitconfig-windows" -Force
+	New-Item -ItemType 'SymbolicLink' `
+		-Path "$env:USERPROFILE\.gitconfig" `
+		-Target "$PSScriptRoot\.gitconfig" `
+		| Out-Null
+	New-Item -ItemType 'SymbolicLink' `
+		-Path "$env:USERPROFILE\.gitconfig-windows" `
+		-Target "$PSScriptRoot\.gitconfig-windows" `
+		| Out-Null
+
+	# SSH configuration
+	New-Item -Path "$env:USERPROFILE\.ssh" -ItemType 'Directory' -Force | Out-Null
+	Remove-Item -ErrorAction SilentlyContinue -Path "$env:USERPROFILE\.ssh\config" -Force
+	New-Item -ItemType 'SymbolicLink' `
+		-Path "$env:USERPROFILE\.ssh\config" `
+		-Target "$PSScriptRoot\ssh_config" | Out-Null
+
+	# GPG configuration
+	New-Item -ItemType 'Directory' -Path "$env:APPDATA\gnupg" -Force | Out-Null
+	$gpgAgentConf = @"
+enable-win32-openssh-support
+allow-loopback-pinentry
+default-cache-ttl 86400
+default-cache-ttl-ssh 86400
+"@
+	Set-Content `
+		-Path "$env:APPDATA\gnupg\gpg-agent.conf" `
+		-Value $gpgAgentConf `
+		-Encoding utf8 `
+		-NoNewLine `
+		;
+	$gpgConf = @"
+use-agent
+pinentry-mode loopback
+"@
+	Set-Content `
+		-Path "$env:APPDATA\gnupg\gpg.conf" `
+		-Value $gpgConf `
+		-Encoding utf8 `
+		-NoNewLine `
+		;
+
+	# GPG agent startup
+	$gpgTaskConfig = @{
+		TaskName = 'Start GPG Agent'
+	Action = New-ScheduledTaskAction -Execute (Get-Command gpg-connect-agent).Source -Argument '/bye';
+		Trigger = New-ScheduledTaskTrigger -AtLogOn;
+		Principal = New-ScheduledTaskPrincipal -UserId $env:USERNAME -LogonType Interactive -RunLevel Limited;
+	}
+	$existingTask =  Get-ScheduledTask -TaskName $gpgTaskConfig.TaskName -ErrorAction SilentlyContinue
+	if ($null -eq $existingTask) {
+		Register-ScheduledTask -TaskName $gpgTaskConfig.TaskName `
+			-Action $gpgTaskConfig.Action `
+			-Trigger $gpgTaskConfig.Trigger `
+			-Principal $gpgTaskConfig.Principal | Out-Null
+		Write-Host "Created gpg-connect-agent task"
+	} else {
+		Set-ScheduledTask -TaskName $gpgTaskConfig.TaskName `
+			-Action $gpgTaskConfig.Action `
+			-Trigger $gpgTaskConfig.Trigger `
+			-Principal $gpgTaskConfig.Principal | Out-Null
+
+		Write-Host "Updated gpg-connect-agent task"
+	}
+
+	exit 0
+}
 
 git submodule update --init
 if (!$?) {
@@ -9,120 +110,62 @@ if (!$?) {
 	exit 1
 }
 
-# Install chocolatey
-if (-not (Get-Command -ErrorAction SilentlyContinue choco)) {
-	[System.Net.ServicePointManager]::SecurityProtocol = `
-		[System.Net.ServicePointManager]::SecurityProtocol -bor 3072 `
-		;
-	$chocoInstall = 'https://community.chocolatey.org/install.ps1'
-	iex ((New-Object System.Net.WebClient).DownloadString($chocoInstall))
+# Install scoop
+if (-not (Get-Command scoop -ErrorAction SilentlyContinue)) {
+	Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
 }
 
-# Vim configuration
-Remove-Item -ErrorAction SilentlyContinue -Path "$env:USERPROFILE\.vimrc" -Force
-Remove-Item -ErrorAction SilentlyContinue -Path "$env:USERPROFILE\.gvimrc" -Force
-Remove-Item -ErrorAction SilentlyContinue -Path "$env:USERPROFILE\_vimrc" -Force
-Remove-Item -ErrorAction SilentlyContinue -Path "$env:USERPROFILE\_gvimrc" -Force
-Remove-Item -ErrorAction SilentlyContinue -Path "$env:USERPROFILE\.vim" -Recurse -Force
-Remove-Item -ErrorAction SilentlyContinue -Path "$env:USERPROFILE\vimfiles" -Recurse -Force
-New-Item -ItemType 'SymbolicLink' `
-	-Path "$env:USERPROFILE\.vimrc" `
-	-Target "$PSScriptRoot\vim\.vimrc" | Out-Null
-New-Item -ItemType 'SymbolicLink' `
-	-Path "$env:USERPROFILE\.gvimrc" `
-	-Target "$PSScriptRoot\vim\.gvimrc" | Out-Null
-New-Item -ItemType 'SymbolicLink' `
-	-Path "$env:USERPROFILE\_vimrc" `
-	-Target "$PSScriptRoot\vim\.vimrc" | Out-Null
-New-Item -ItemType 'SymbolicLink' `
-	-Path "$env:USERPROFILE\.vim" `
-	-Target "$PSScriptRoot\vim" | Out-Null
-New-Item -ItemType 'SymbolicLink' `
-	-Path "$env:USERPROFILE\vimfiles" `
-	-Target "$PSScriptRoot\vim" | Out-Null
+$packagesJson = Get-Content -Path "$PSScriptRoot\packages.json" -Raw | ConvertFrom-Json
+foreach ($bucket in $packagesJson.buckets) {
+	scoop bucket add $bucket
+}
 
-
-# SSH configuration
-New-Item -Path "$env:USERPROFILE\.ssh" -ItemType 'Directory' -Force | Out-Null
-Remove-Item -ErrorAction SilentlyContinue -Path "$env:USERPROFILE\.ssh\config" -Force
-New-Item -ItemType 'SymbolicLink' `
-	-Path "$env:USERPROFILE\.ssh\config" `
-	-Target "$PSScriptRoot\ssh_config" | Out-Null
+foreach ($package in $packagesJson.packages) {
+	scoop install $package
+	if (!$?) {
+		Write-Warning "Failed to install $package"
+	}
+}
 
 # GPG configuration
-New-Item -ItemType 'Directory' -Path "$env:APPDATA\gnupg" -Force | Out-Null
-$gpgAgentConf = @"
-enable-win32-openssh-support
-allow-loopback-pinentry
-default-cache-ttl 86400
-default-cache-ttl-ssh 86400
-"@
-Set-Content `
-	-Path "$env:APPDATA\gnupg\gpg-agent.conf" `
-	-Value $gpgAgentConf `
-	-Encoding utf8 `
-	-NoNewLine `
-	;
-$gpgConf = @"
-use-agent
-pinentry-mode loopback
-"@
-Set-Content `
-	-Path "$env:APPDATA\gnupg\gpg.conf" `
-	-Value $gpgConf `
-	-Encoding utf8 `
-	-NoNewLine `
-	;
+New-Item -Path "$env:USERPROFILE\.gnupg" -ItemType Directory -Force | Out-Null
 
-# Hg configuration
-Remove-Item -ErrorAction SilentlyContinue -Path "$env:USERPROFILE\.hgrc" -Force
-New-Item -ItemType 'SymbolicLink' `
-	-Path "$env:USERPROFILE\.hgrc" `
-	-Target "$PSScriptRoot\.hgrc"
+# # Vim configuration
+# Remove-Item -ErrorAction SilentlyContinue -Path "$env:USERPROFILE\.vimrc" -Force
+# Remove-Item -ErrorAction SilentlyContinue -Path "$env:USERPROFILE\.gvimrc" -Force
+# Remove-Item -ErrorAction SilentlyContinue -Path "$env:USERPROFILE\_vimrc" -Force
+# Remove-Item -ErrorAction SilentlyContinue -Path "$env:USERPROFILE\_gvimrc" -Force
+# Remove-Item -ErrorAction SilentlyContinue -Path "$env:USERPROFILE\.vim" -Recurse -Force
+# Remove-Item -ErrorAction SilentlyContinue -Path "$env:USERPROFILE\vimfiles" -Recurse -Force
+# New-Item -ItemType 'SymbolicLink' `
+# 	-Path "$env:USERPROFILE\.vimrc" `
+# 	-Target "$PSScriptRoot\vim\.vimrc" | Out-Null
+# New-Item -ItemType 'SymbolicLink' `
+# 	-Path "$env:USERPROFILE\.gvimrc" `
+# 	-Target "$PSScriptRoot\vim\.gvimrc" | Out-Null
+# New-Item -ItemType 'SymbolicLink' `
+# 	-Path "$env:USERPROFILE\_vimrc" `
+# 	-Target "$PSScriptRoot\vim\.vimrc" | Out-Null
+# New-Item -ItemType 'SymbolicLink' `
+# 	-Path "$env:USERPROFILE\.vim" `
+# 	-Target "$PSScriptRoot\vim" | Out-Null
+# New-Item -ItemType 'SymbolicLink' `
+# 	-Path "$env:USERPROFILE\vimfiles" `
+# 	-Target "$PSScriptRoot\vim" | Out-Null
 
-# Git configuration
-Remove-Item -ErrorAction SilentlyContinue -Path "$env:USERPROFILE\.gitconfig" -Force
-Remove-Item -ErrorAction SilentlyContinue -Path "$env:USERPROFILE\.gitconfig-windows" -Force
-New-Item -ItemType 'SymbolicLink' `
-	-Path "$env:USERPROFILE\.gitconfig" `
-	-Target "$PSScriptRoot\.gitconfig"
-New-Item -ItemType 'SymbolicLink' `
-	-Path "$env:USERPROFILE\.gitconfig-windows" `
-	-Target "$PSScriptRoot\.gitconfig-windows"
 
-# Install chocolatey packages
-choco install -y packages.config
-if (!$?) {
-	Write-Error "Failed to install choco packages"
-	exit 1
-}
-
-# GPG agent startup
-$gpgTaskConfig = @{
-	TaskName = 'Start GPG Agent';
-	Action = New-ScheduledTaskAction -Execute (Get-Command gpg-connect-agent).Source -Argument '/bye';
-	Trigger = New-ScheduledTaskTrigger -AtLogOn;
-	Principal = New-ScheduledTaskPrincipal -UserId $env:USERNAME -LogonType Interactive -RunLevel Limited;
-}
-$existingTask =  Get-ScheduledTask -TaskName $gpgTaskConfig.TaskName -ErrorAction SilentlyContinue
-if ($null -eq $existingTask) {
-	Register-ScheduledTask -TaskName $gpgTaskConfig.TaskName `
-		-Action $gpgTaskConfig.Action `
-		-Trigger $gpgTaskConfig.Trigger `
-		-Principal $gpgTaskConfig.Principal | Out-Null
-	Write-Host "Created gpg-connect-agent task"
-} else {
-	Set-ScheduledTask -TaskName $gpgTaskConfig.TaskName `
-		-Action $gpgTaskConfig.Action `
-		-Trigger $gpgTaskConfig.Trigger `
-		-Principal $gpgTaskConfig.Principal | Out-Null
-
-	Write-Host "Updated gpg-connect-agent task"
-}
+# # Hg configuration
+# Remove-Item -ErrorAction SilentlyContinue -Path "$env:USERPROFILE\.hgrc" -Force
+# New-Item -ItemType 'SymbolicLink' `
+# 	-Path "$env:USERPROFILE\.hgrc" `
+# 	-Target "$PSScriptRoot\.hgrc"
 
 # Cleanup after cmder
 if ($env:CMDER_ROOT) {
-	Remove-Item -Force -Recurse -Path "$env:CMDER_ROOT\vendor\git-for-windows"
+	$vendoredGitPath = "$env:CMDER_ROOT\vendor\git-for-windows"
+	if (Test-Path -Path $vendoredGitPath) {
+		Remove-Item -Force -Recurse -Path $vendoredGitPath
+	}
 }
 if ($env:ChocolateyInstall) {
 	& "$env:ChocolateyInstall\bin\RefreshEnv.cmd"
@@ -131,4 +174,13 @@ if ($env:ChocolateyInstall) {
 # Replace origin
 git remote rm origin
 git remote add origin git@github.com:mendsley/config
-Remove-Item -Force -Path "$env:GIT_INSTALL_ROOT\usr\bin\vim.exe"
+
+$gitVimPath = "$env:GIT_INSTALL_ROOT\usr\bin\vim.exe"
+if (Test-Path -Path $gitVimPath) {
+	Remove-Item -Force -Path $gitVimPath
+}
+
+$gitGpgPath = "$env:GIT_INSTALL_ROOT\usr\bin\gpg.exe"
+if (Test-Path -Path $gitGpgPath) {
+	Remove-Item -Force -Path $gitGpgPath
+}
