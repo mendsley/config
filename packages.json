@@ -19,7 +19,9 @@
         "windirstat",
         "winrar",
         "yubioath",
-        "slack"
+        "slack",
+        "neovim",
+        "neovide"
     ],
     "buckets": [
         "main",
