@@ -141,6 +141,10 @@ foreach ($package in $packagesJson.packages) {
 	}
 }
 
+foreach ($package in $packagesJson.admin_packages) {
+	sudo.cmd scoop install --global $package
+}
+
 # GPG configuration
 New-Item -Path "$env:USERPROFILE\.gnupg" -ItemType Directory -Force | Out-Null
 

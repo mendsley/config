@@ -1,32 +1,35 @@
 {
-    "packages": [
-        "7zip",
-        "versions/beyondcompare4",
-        "dotnet-sdk",
-        "git",
-        "gnucash",
-        "gpg4win",
-        "nodejs",
-        "notepadplusplus",
-        "openvpn",
-        "p4v",
-        "pwsh",
-        "process-explorer",
-        "python",
-        "ripgrep",
-        "perl",
-        "vault",
-        "windirstat",
-        "winrar",
-        "yubioath",
-        "slack",
-        "neovim",
-        "neovide"
-    ],
-    "buckets": [
-        "main",
-        "extras",
-        "versions",
-        "sysinternals"
-    ]
+	"packages": [
+		"7zip",
+		"versions/beyondcompare4",
+		"dotnet-sdk",
+		"git",
+		"gnucash",
+		"gpg4win",
+		"nodejs",
+		"notepadplusplus",
+		"p4v",
+		"pwsh",
+		"process-explorer",
+		"python",
+		"ripgrep",
+		"perl",
+		"vault",
+		"windirstat",
+		"winrar",
+		"yubioath",
+		"slack",
+		"neovim",
+		"neovide",
+		"sudo"
+	],
+	"admin_packages": [
+		"openvpn"
+	],
+	"buckets": [
+		"main",
+		"extras",
+		"versions",
+		"sysinternals"
+	]
 }
