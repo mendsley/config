@@ -24,7 +24,8 @@
 		"sudo",
 		"alacritty",
 		"oh-my-posh",
-		"coreutils"
+		"coreutils",
+		"findutils"
 	],
 	"admin_packages": [
 		"openvpn"
