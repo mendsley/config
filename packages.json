@@ -23,7 +23,8 @@
 		"neovide",
 		"sudo",
 		"alacritty",
-		"oh-my-posh"
+		"oh-my-posh",
+		"coreutils"
 	],
 	"admin_packages": [
 		"openvpn"
