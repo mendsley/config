@@ -25,7 +25,8 @@
 		"alacritty",
 		"oh-my-posh",
 		"coreutils",
-		"findutils"
+		"findutils",
+		"dos2unix"
 	],
 	"admin_packages": [
 		"openvpn"
