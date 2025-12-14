@@ -143,7 +143,7 @@ foreach ($package in $packagesJson.packages) {
 }
 
 foreach ($package in $packagesJson.admin_packages) {
-	sudo.cmd scoop install --global $package
+	gsudo scoop install --global $package
 }
 
 # GPG configuration

@@ -21,7 +21,7 @@
 		"slack",
 		"neovim",
 		"neovide",
-		"sudo",
+		"gsudo",
 		"alacritty",
 		"oh-my-posh",
 		"coreutils",
