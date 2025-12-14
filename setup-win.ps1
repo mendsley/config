@@ -242,6 +242,10 @@ $profileContent += "$poshGitCommand`n"
 
 $profileContent | Set-Content -Path $profilePath -Encoding UTF8
 
+# install corepack
+npm install -g corepack
+"y" | corepack enable
+
 # Replace origin
 git remote rm origin
 git remote add origin git@github.com:mendsley/config
