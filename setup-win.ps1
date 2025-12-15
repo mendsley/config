@@ -117,12 +117,6 @@ pinentry-mode loopback
 	exit 0
 }
 
-git submodule update --init
-if (!$?) {
-	Write-Error "Failed to update git submodules"
-	exit 1
-}
-
 [System.Environment]::SetEnvironmentVariable('EDITOR', 'nvim', [System.EnvironmentVariableTarget]::User)
 
 # Install scoop
