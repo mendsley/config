@@ -188,18 +188,24 @@ if (Test-Path -Path $wtSettingsPath) {
 
 	$settings.defaultProfile = "{574e775e-4f2a-5b96-ac1e-a2962a402336}"
 
-	$fontConfig = @{
-		face = "MesloLGM Nerd Font"
-		size = 10
-		fontWeight = "normal"
-		useAcrylic = $true
+	$profiles = [ordered]@{
+		defaults = [ordered]@{
+			cursorShape = "bar"
+			"experimental.retroTerminalEffect" = $false
+			font = @{
+				face = "MesloLGM Nerd Font"
+				size = 10
+			}
+		}
+		list = $settings.profiles.list
 	}
+
 	Add-Member `
 		-Force `
-		-InputObject $settings.profiles.defaults `
+		-InputObject $settings`
 		-MemberType NoteProperty `
-		-Name "font" `
-		-Value $fontConfig `
+		-Name "profiles" `
+		-Value $profiles `
 		;
 
 	$settings `
