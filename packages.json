@@ -25,7 +25,8 @@
 		"oh-my-posh",
 		"coreutils",
 		"findutils",
-		"dos2unix"
+		"dos2unix",
+		"graphviz"
 	],
 	"admin_packages": [
 		"openvpn"
