@@ -1,0 +1,9 @@
+{
+  "languages": {
+    "go": {
+      "enabled": true,
+      "lint_tool": "golangci-lint",
+      "module_detection": "auto"
+    }
+  }
+}

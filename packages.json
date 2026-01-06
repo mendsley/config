@@ -26,7 +26,9 @@
 		"coreutils",
 		"findutils",
 		"dos2unix",
-		"graphviz"
+		"graphviz",
+		"bun",
+		"opencode"
 	],
 	"admin_packages": [
 		"openvpn"

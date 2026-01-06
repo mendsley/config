@@ -114,6 +114,13 @@ pinentry-mode loopback
 		Write-Host "Updated gpg-connect-agent task"
 	}
 
+	# Opencode setup
+	New-Item -Path "$env:USERPROFILE\.config\opencode" -ItemType 'Directory' -Force | Out-Null
+	Remove-Item -ErrorAction SilentlyContinue -Path "$env:USERPROFILE\.config\opencode\oh-my-opencode.json" -Force
+	New-Item -ItemType 'SymbolicLink' `
+		-Path "$env:USERPROFILE\.config\opencode\oh-my-opencode.json"
+		-Target "$PSScriptRoot\oh-my-opencode.json" | Out-Null
+
 	exit 0
 }
 
@@ -245,6 +252,13 @@ $profileContent | Set-Content -Path $profilePath -Encoding UTF8
 # install corepack
 npm install -g corepack
 "y" | corepack enable
+
+# install oh-my-opencode
+npx oh-my-opencode install
+
+# Go tools
+go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
+go install honnef.co/go/tools/cmd/staticcheck@latest
 
 # Replace origin
 git remote rm origin
