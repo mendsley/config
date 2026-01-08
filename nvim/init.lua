@@ -67,6 +67,24 @@ require("lazy").setup({
 	{ "preservim/nerdtree" },
 	{ "rebelot/kanagawa.nvim" },
 
+	-- LSP Support
+	{
+		"williamboman/mason.nvim",
+		config = function()
+			require("mason").setup()
+		end,
+	},
+	{
+		"williamboman/mason-lspconfig.nvim",
+		dependencies = { "williamboman/mason.nvim" },
+		config = function()
+			require("mason-lspconfig").setup({
+				ensure_installed = { "gopls", "clangd" },
+				automatic_installation = true,
+			})
+		end,
+	},
+
 	{
 		"hrsh7th/nvim-cmp",
 		dependencies = {
@@ -94,3 +112,45 @@ require("lazy").setup({
 
 -- default colorscheme
 vim.cmd([[colorscheme kanagawa-wave]])
+
+-- LSP configuration (Neovim 0.11+ native API)
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
+
+vim.lsp.config("gopls", {
+	cmd = { "gopls" },
+	filetypes = { "go", "gomod", "gowork", "gotmpl" },
+	root_markers = { "go.mod", "go.work", ".git" },
+	capabilities = capabilities,
+	settings = {
+		gopls = {
+			analyses = { unusedparams = true },
+			staticcheck = true,
+		},
+	},
+})
+
+vim.lsp.config("clangd", {
+	cmd = { "clangd", "--background-index", "--clang-tidy" },
+	filetypes = { "c", "cpp", "objc", "objcpp", "cuda" },
+	root_markers = { ".clangd", "compile_commands.json", "compile_flags.txt", ".git" },
+	capabilities = capabilities,
+})
+
+vim.lsp.enable({ "gopls", "clangd" })
+
+-- LSP keymaps via LspAttach autocmd
+vim.api.nvim_create_autocmd("LspAttach", {
+	callback = function(args)
+		local opts = { buffer = args.buf, noremap = true, silent = true }
+		vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+		vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
+		vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
+		vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
+		vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+		vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
+		vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
+		vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
+		vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
+		vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, opts)
+	end,
+})
