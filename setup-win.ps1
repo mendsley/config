@@ -254,11 +254,22 @@ npm install -g corepack
 "y" | corepack enable
 
 # install oh-my-opencode
-npx oh-my-opencode install
+npx oh-my-opencode install --no-tui --claude=max20 --chatgpt=no --gemini=yes
 
 # Go tools
 go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
 go install honnef.co/go/tools/cmd/staticcheck@latest
+
+# Install claude
+$bashCommand = Get-Command 'bash'
+[System.Environment]::SetEnvironmentVariable('SHELL', $bashCommand.Source, 'User')
+[System.Environment]::SetEnvironmentVariable('CLAUDE_CODE_GIT_BASH_PATH', $bashCommand.Source, 'User')
+$env:SHELL = $bashCommand.Source
+$env:CLAUDE_CODE_GIT_BASH_PATH = $bashCommand.Source
+irm https://claude.ai/install.ps1 | iex
+
+# Claude config
+claude mcp add --transport http clickup https://mcp.clickup.com/mcp
 
 # Replace origin
 git remote rm origin
