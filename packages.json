@@ -29,7 +29,8 @@
 		"graphviz",
 		"bun",
 		"opencode",
-		"marktext"
+		"marktext",
+		"gh"
 	],
 	"admin_packages": [
 		"openvpn"
