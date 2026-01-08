@@ -28,7 +28,8 @@
 		"dos2unix",
 		"graphviz",
 		"bun",
-		"opencode"
+		"opencode",
+		"marktext"
 	],
 	"admin_packages": [
 		"openvpn"
