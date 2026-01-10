@@ -270,6 +270,7 @@ irm https://claude.ai/install.ps1 | iex
 
 # Claude config
 claude mcp add --transport http clickup https://mcp.clickup.com/mcp
+claude mcp add --transport http github https://api.githubcopilot.com/mcp
 
 # Replace origin
 git remote rm origin
