@@ -262,7 +262,6 @@ go install honnef.co/go/tools/cmd/staticcheck@latest
 
 # Install claude
 $bashCommand = Get-Command 'bash'
-[System.Environment]::SetEnvironmentVariable('SHELL', $bashCommand.Source, 'User')
 [System.Environment]::SetEnvironmentVariable('CLAUDE_CODE_GIT_BASH_PATH', $bashCommand.Source, 'User')
 $env:SHELL = $bashCommand.Source
 $env:CLAUDE_CODE_GIT_BASH_PATH = $bashCommand.Source
