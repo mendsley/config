@@ -1,3 +1,4 @@
+export EDITOR=nvim
 export PATH="$HOME/.local/bin:$PATH"
 
 # GPG agent as SSH agent
