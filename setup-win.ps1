@@ -226,6 +226,7 @@ if (Test-Path -Path $wtSettingsPath) {
 pwsh -Command 'oh-my-posh font install meslo'
 
 pwsh -Command 'Install-Module posh-git -Scope CurrentUser -Force -Confirm:$false -AllowClobber'
+pwsh -Command 'Install-Module PSFzf -Scope CurrentUser -Force -Confirm:$false -AllowClobber'
 
 $poshGitCommand = "Import-Module posh-git"
 $ompCommand = "oh-my-posh init pwsh --config `"`$env:POSH_THEMES_PATH\multiverse-neon.omp.json`" | Invoke-Expression"
@@ -242,11 +243,34 @@ if (Test-Path -Path $profilePath) {
 	$profileContent = Get-Content -Path $profilePath -Raw `
 		| Where-Object { $_ -notmatch 'oh-my-posh init pwsh' } `
 		| Where-Object { $_ -notmatch 'posh-git' } `
+		| Where-Object { $_ -notmatch 'PSFzf' } `
+		| Where-Object { $_ -notmatch 'Set-PsFzfOption' } `
+		| Where-Object { $_ -notmatch '\beza\b' } `
+		| Where-Object { $_ -notmatch '\bbat\b' } `
 		;
 }
 
 $profileContent += "$ompCommand`n"
 $profileContent += "$poshGitCommand`n"
+
+$fzfEzaBatBlock = @"
+
+# fzf integration
+Import-Module PSFzf
+Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+t' -PSReadlineChordReverseHistory 'Ctrl+r'
+
+# eza aliases
+Remove-Alias ls -Force -ErrorAction SilentlyContinue
+Set-Alias -Name ls -Value eza
+function ll { eza -l @args }
+function la { eza -la @args }
+function tree { eza --tree @args }
+
+# bat alias
+Remove-Alias cat -Force -ErrorAction SilentlyContinue
+function cat { bat --plain @args }
+"@
+$profileContent += "$fzfEzaBatBlock`n"
 
 $profileContent | Set-Content -Path $profilePath -Encoding UTF8
 
