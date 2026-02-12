@@ -31,7 +31,10 @@
 		"opencode",
 		"marktext",
 		{ "name": "gh", "brew": true },
-		{ "name": "htop", "brew": true }
+		{ "name": "htop", "brew": true },
+		{ "name": "fzf", "brew": true },
+		{ "name": "eza", "brew": true },
+		{ "name": "bat", "brew": true }
 	],
 	"admin_packages": [
 		"openvpn"
@@ -44,7 +47,17 @@
 		"nerd-fonts"
 	],
 	"mac_extras": {
-		"formulae": ["pinentry-mac", "cmake", "git-gui", "git-lfs", "yasm", "zsh-completions", "goenv", "fzf", "zsh-autosuggestions", "zsh-syntax-highlighting", "eza", "bat"],
+		"formulae": [
+			"pinentry-mac",
+			"cmake",
+			"git-gui",
+			"git-lfs",
+			"yasm",
+			"zsh-completions",
+			"goenv",
+			"zsh-autosuggestions",
+			"zsh-syntax-highlighting"
+		],
 		"casks": []
 	}
 }
