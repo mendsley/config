@@ -36,7 +36,7 @@
 	eol = lf
 	autocrlf = false
 	hideDotFiles = dotGitOnly
-	pager = "less -x1,5"
+	pager = "less -FRXx1,5"
 	longpaths = true
 [difftool]
 	prompt = false
