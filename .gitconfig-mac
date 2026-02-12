@@ -1,0 +1,18 @@
+[filter "lfs"]
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+[merge]
+	tool = bc3
+	defaultToUpstream = true
+[mergetool "bc3"]
+	cmd = bcomp "$LOCAL" "$REMOTE" "$BASE" "$MERGED"
+	trustExitCode = true
+[diff]
+	tool = bc3
+[difftool "bc3"]
+	cmd = bcomp "$LOCAL" "$REMOTE"
+[mergetool]
+	keepbackup = false
+	keeptemporaries = false

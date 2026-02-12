@@ -137,9 +137,10 @@ foreach ($bucket in $packagesJson.buckets) {
 }
 
 foreach ($package in $packagesJson.packages) {
-	scoop install $package
+	$name = if ($package -is [string]) { $package } else { $package.name }
+	scoop install $name
 	if (!$?) {
-		Write-Warning "Failed to install $package"
+		Write-Warning "Failed to install $name"
 	}
 }
 
