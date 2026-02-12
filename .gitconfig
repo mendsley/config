@@ -56,3 +56,4 @@
 
 [include]
 	path = ~/.gitconfig-windows
+	path = ~/.gitconfig-mac

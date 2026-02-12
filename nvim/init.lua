@@ -6,9 +6,12 @@ vim.keymap.set("n", "<A-w><A-w>", ":wincmd w<CR>", { desc = "Switch to next wind
 vim.keymap.set("n", "<leader>f", ":NERDTreeFind<CR>", { desc = "Find file in NERDTree" })
 vim.keymap.set("n", "<leader>d", ":NERDTreeToggle<CR>", { desc = "Toggle NERDTree" })
 
-
 -- GUI font
-vim.opt.guifont = "Consolas:h10"
+if vim.fn.has("mac") == 1 then
+    vim.opt.guifont = "Menlo:h11"
+else
+    vim.opt.guifont = "Consolas:h10"
+end
 
 -- tabstops
 vim.opt.tabstop = 4

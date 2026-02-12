@@ -1,25 +1,25 @@
 {
 	"packages": [
 		"7zip",
-		"versions/beyondcompare4",
+		{ "name": "versions/beyondcompare4", "brew_cask": "beyond-compare@4" },
 		"dotnet-sdk",
 		"git",
 		"gnucash",
-		"gpg4win",
+		{ "name": "gpg4win", "brew": "gnupg" },
 		"nodejs",
 		"notepadplusplus",
 		"p4v",
 		"pwsh",
 		"process-explorer",
 		"python",
-		"ripgrep",
+		{ "name": "ripgrep", "brew": true },
 		"perl",
 		"vault",
 		"windirstat",
 		"winrar",
-		"yubioath",
-		"neovim",
-		"neovide",
+		{ "name": "yubioath", "brew_cask": "yubico-authenticator" },
+		{ "name": "neovim", "brew": true },
+		{ "name": "neovide", "brew_cask": true },
 		"gsudo",
 		"alacritty",
 		"oh-my-posh",
@@ -30,7 +30,8 @@
 		"bun",
 		"opencode",
 		"marktext",
-		"gh"
+		{ "name": "gh", "brew": true },
+		{ "name": "htop", "brew": true }
 	],
 	"admin_packages": [
 		"openvpn"
@@ -41,5 +42,9 @@
 		"versions",
 		"sysinternals",
 		"nerd-fonts"
-	]
+	],
+	"mac_extras": {
+		"formulae": ["pinentry-mac", "cmake", "git-gui", "git-lfs", "yasm", "zsh-completions", "goenv", "fzf", "zsh-autosuggestions", "zsh-syntax-highlighting", "eza", "bat"],
+		"casks": []
+	}
 }
