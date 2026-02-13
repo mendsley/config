@@ -286,9 +286,12 @@ irm https://claude.ai/install.ps1 | iex
 claude mcp add --transport http clickup https://mcp.clickup.com/mcp
 claude mcp add --transport http github https://api.githubcopilot.com/mcp
 
-# Replace origin
-git remote rm origin
-git remote add origin git@github.com:mendsley/config
+# Replace origin with SSH remote (if needed)
+$originUrl = git remote get-url origin 2>$null
+if ($originUrl -ne "git@github.com:mendsley/config") {
+	git remote rm origin
+	git remote add origin git@github.com:mendsley/config
+}
 
 $gitVimPath = "$env:GIT_INSTALL_ROOT\usr\bin\vim.exe"
 if (Test-Path -Path $gitVimPath) {
