@@ -5,7 +5,7 @@ param(
 $ErrorActionPreference = 'Stop'
 
 $goupVersion = "1.7.0"
-$goVersion = "1.25.5"
+$goVersion = "1.26.0"
 $ompTheme = "multiverse-neon"
 
 # Check if we're running as administrator
