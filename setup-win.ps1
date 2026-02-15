@@ -59,6 +59,14 @@ if ($AdminOnly) {
 		-Target "$PSScriptRoot\.gitconfig-windows" `
 		| Out-Null
 
+	# Claude Code statusline
+	New-Item -ItemType Directory -Path "$env:USERPROFILE\.claude" -Force | Out-Null
+	Remove-Item -ErrorAction SilentlyContinue -Path "$env:USERPROFILE\.claude\statusline.py" -Force
+	New-Item -ItemType 'SymbolicLink' `
+		-Path "$env:USERPROFILE\.claude\statusline.py" `
+		-Target "$PSScriptRoot\claude\statusline.py" `
+		| Out-Null
+
 	# SSH configuration
 	New-Item -Path "$env:USERPROFILE\.ssh" -ItemType 'Directory' -Force | Out-Null
 	Remove-Item -ErrorAction SilentlyContinue -Path "$env:USERPROFILE\.ssh\config" -Force
@@ -282,9 +290,18 @@ $env:SHELL = $bashCommand.Source
 $env:CLAUDE_CODE_GIT_BASH_PATH = $bashCommand.Source
 irm https://claude.ai/install.ps1 | iex
 
-# Claude config
-#claude mcp add --transport http clickup https://mcp.clickup.com/mcp
-#claude mcp add --transport http github https://api.githubcopilot.com/mcp
+# Claude Code settings
+$claudeSettingsPath = "$env:USERPROFILE\.claude\settings.json"
+$statuslinePath = "$env:USERPROFILE\.claude\statusline.py" -replace '\\', '/'
+$claudeSettings = @{}
+if (Test-Path $claudeSettingsPath) {
+	$claudeSettings = Get-Content -Path $claudeSettingsPath -Raw | ConvertFrom-Json -AsHashtable
+}
+$claudeSettings['statusLine'] = @{
+	type = 'command'
+	command = "python $statuslinePath"
+}
+$claudeSettings | ConvertTo-Json -Depth 10 | Set-Content -Path $claudeSettingsPath -Encoding UTF8
 
 # Replace origin with SSH remote (if needed)
 $originUrl = git remote get-url origin 2>$null
