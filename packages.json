@@ -31,7 +31,6 @@
 		"opencode",
 		"marktext",
 		{ "name": "gh", "brew": true },
-		{ "name": "htop", "brew": true },
 		{ "name": "fzf", "brew": true },
 		{ "name": "eza", "brew": true },
 		{ "name": "bat", "brew": true }
@@ -56,7 +55,8 @@
 			"zsh-completions",
 			"goenv",
 			"zsh-autosuggestions",
-			"zsh-syntax-highlighting"
+			"zsh-syntax-highlighting",
+			"htop"
 		],
 		"casks": []
 	}
