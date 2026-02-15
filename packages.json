@@ -33,7 +33,9 @@
 		{ "name": "gh", "brew": true },
 		{ "name": "fzf", "brew": true },
 		{ "name": "eza", "brew": true },
-		{ "name": "bat", "brew": true }
+		{ "name": "bat", "brew": true },
+		{ "name": "jq", "brew": true },
+		{ "name": "bc", "brew": true }
 	],
 	"admin_packages": [
 		"openvpn"
