@@ -187,6 +187,20 @@ if (!$?) {
 	Write-Error "Failed to install go $goVersion"
 }
 
+# Add GOPATH\bin to PATH if not already present
+$goPath = & go env GOPATH
+if ($goPath) {
+	$goPathBin = Join-Path $goPath "bin"
+	$currentPath = [Environment]::GetEnvironmentVariable("PATH", "User")
+	if ($currentPath -notlike "*$goPathBin*") {
+		Write-Host "Adding $goPathBin to PATH..."
+		[Environment]::SetEnvironmentVariable("PATH", "$currentPath;$goPathBin", "User")
+		$env:PATH += ";$goPathBin"
+	} else {
+		Write-Host "GOPATH\bin already in PATH"
+	}
+}
+
 # Setup windows terminal to use pwsh
 $wtSettingsPath = "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
 if (Test-Path -Path $wtSettingsPath) {
