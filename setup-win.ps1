@@ -137,6 +137,9 @@ foreach ($bucket in $packagesJson.buckets) {
 	scoop bucket add $bucket
 }
 
+# Add dicklesworthstone bucket
+scoop bucket add dicklesworthstone https://github.com/Dicklesworthstone/scoop-bucket
+
 foreach ($package in $packagesJson.packages) {
 	$name = if ($package -is [string]) { $package } else { $package.name }
 	scoop install $name
