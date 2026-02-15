@@ -301,11 +301,16 @@ go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
 go install honnef.co/go/tools/cmd/staticcheck@latest
 
 # Install claude
-$bashCommand = Get-Command 'bash'
-[System.Environment]::SetEnvironmentVariable('CLAUDE_CODE_GIT_BASH_PATH', $bashCommand.Source, 'User')
-$env:SHELL = $bashCommand.Source
-$env:CLAUDE_CODE_GIT_BASH_PATH = $bashCommand.Source
-irm https://claude.ai/install.ps1 | iex
+if (-not (Get-Command claude -ErrorAction SilentlyContinue)) {
+	Write-Host "Installing Claude Code..."
+	$bashCommand = Get-Command 'bash'
+	[System.Environment]::SetEnvironmentVariable('CLAUDE_CODE_GIT_BASH_PATH', $bashCommand.Source, 'User')
+	$env:SHELL = $bashCommand.Source
+	$env:CLAUDE_CODE_GIT_BASH_PATH = $bashCommand.Source
+	irm https://claude.ai/install.ps1 | iex
+} else {
+	Write-Host "Claude Code already installed"
+}
 
 # Claude Code settings
 $claudeSettingsPath = "$env:USERPROFILE\.claude\settings.json"
