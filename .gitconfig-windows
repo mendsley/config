@@ -1,5 +1,7 @@
 [core]
 	sshcommand = C:/Windows/System32/OpenSSH/ssh.exe
+[gpg]
+	program = ~/scoop/apps/gpg4win/current/GnuPG/bin/gpg.exe
 [merge]
 	tool = bc3
 	defaultToUpstream = true

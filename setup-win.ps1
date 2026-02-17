@@ -303,10 +303,10 @@ go install honnef.co/go/tools/cmd/staticcheck@latest
 # Install claude
 if (-not (Get-Command claude -ErrorAction SilentlyContinue)) {
 	Write-Host "Installing Claude Code..."
-	$bashCommand = Get-Command 'bash'
-	[System.Environment]::SetEnvironmentVariable('CLAUDE_CODE_GIT_BASH_PATH', $bashCommand.Source, 'User')
-	$env:SHELL = $bashCommand.Source
-	$env:CLAUDE_CODE_GIT_BASH_PATH = $bashCommand.Source
+	$bashCommand = (scoop which bash | Resolve-Path).Path
+	[System.Environment]::SetEnvironmentVariable('CLAUDE_CODE_GIT_BASH_PATH', $bashCommand, 'User')
+	$env:SHELL = $bashCommand
+	$env:CLAUDE_CODE_GIT_BASH_PATH = $bashCommand
 	irm https://claude.ai/install.ps1 | iex
 } else {
 	Write-Host "Claude Code already installed"
