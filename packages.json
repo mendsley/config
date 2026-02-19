@@ -37,7 +37,8 @@
 		{ "name": "jq", "brew": true },
 		{ "name": "bc", "brew": true },
 		{ "name": "dicklesworthstone/bv", "brew": "dicklesworthstone/tap/bv" },
-		{ "name": "mendsley/bd", "brew": "beads" }
+		{ "name": "mendsley/bd", "brew": "beads" },
+		{ "name": "goreleaser" }
 	],
 	"admin_packages": [
 		"openvpn"
@@ -47,7 +48,8 @@
 		"extras",
 		"versions",
 		"sysinternals",
-		"nerd-fonts"
+		"nerd-fonts",
+		"goreleaser"
 	],
 	"mac_extras": {
 		"formulae": [
