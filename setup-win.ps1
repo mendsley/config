@@ -139,6 +139,7 @@ foreach ($bucket in $packagesJson.buckets) {
 
 # Add dicklesworthstone bucket
 scoop bucket add dicklesworthstone https://github.com/Dicklesworthstone/scoop-bucket
+scoop bucket add mendsley https://github.com/mendsley/scoop-bucket
 
 foreach ($package in $packagesJson.packages) {
 	$name = if ($package -is [string]) { $package } else { $package.name }

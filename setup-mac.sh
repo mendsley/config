@@ -48,9 +48,6 @@ if [ -z "$(goenv versions --bare 2>/dev/null)" ]; then
     goenv global "$LATEST_GO"
 fi
 
-# Install beads
-go install github.com/steveyegge/beads/cmd/bd@latest
-
 # git configuration
 rm -f $HOME/.gitconfig
 ln -s "$ROOT/.gitconfig" $HOME/.gitconfig

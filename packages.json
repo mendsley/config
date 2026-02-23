@@ -36,7 +36,8 @@
 		{ "name": "bat", "brew": true },
 		{ "name": "jq", "brew": true },
 		{ "name": "bc", "brew": true },
-		{ "name": "dicklesworthstone/bv", "brew": "dicklesworthstone/tap/bv" }
+		{ "name": "dicklesworthstone/bv", "brew": "dicklesworthstone/tap/bv" },
+		{ "name": "mendsley/bd", "brew": "beads" }
 	],
 	"admin_packages": [
 		"openvpn"
