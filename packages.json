@@ -28,7 +28,6 @@
 		"dos2unix",
 		"graphviz",
 		"bun",
-		"opencode",
 		"marktext",
 		{ "name": "gh", "brew": true },
 		{ "name": "fzf", "brew": true },
