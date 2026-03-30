@@ -8,6 +8,7 @@
 		{ "name": "gpg4win", "brew": "gnupg" },
 		"nodejs",
 		"notepadplusplus",
+		"openssl",
 		"p4v",
 		"poppler",
 		"pwsh",
