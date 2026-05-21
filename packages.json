@@ -39,7 +39,8 @@
 		{ "name": "bc", "brew": true },
 		{ "name": "dicklesworthstone/bv", "brew": "dicklesworthstone/tap/bv" },
 		{ "name": "mendsley/bd", "brew": "beads" },
-		{ "name": "goreleaser" }
+		{ "name": "goreleaser" },
+		"extras/dependencies"
 	],
 	"admin_packages": [
 		"openvpn"
