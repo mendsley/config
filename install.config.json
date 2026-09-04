@@ -1,0 +1,43 @@
+{
+	"_documentation": {
+		"purpose": "Selects which packages and setup components the install scripts (setup-win.ps1, setup-mac.sh) install. Edit this file before running an installer.",
+		"components": "Set a component to false to skip it. A missing key defaults to true, so this file only needs to list what you want turned off. If this file is missing entirely, everything installs.",
+		"packages": "packages.exclude lists package names to skip. Names match the 'name' field (or the bare string) of entries in packages.json, including admin_packages and mac_extras entries.",
+		"local_override": "Personal preferences belong in install.config.local.json (same shape as this file, untracked and gitignored). When it exists, the installers use it instead of this file, so this tracked file stays the shared default.",
+		"component_reference": {
+			"developer_mode": "Windows admin phase: machine-wide execution policy and the Developer Mode registry key. The symlink components below require Developer Mode or elevation.",
+			"nvim": "Neovim config symlink (Windows: %LOCALAPPDATA%\\nvim, macOS: ~/.config/nvim).",
+			"git": "~/.gitconfig and per-OS include symlinks; macOS also runs 'git lfs install'.",
+			"ssh": "Replaces ~/.ssh/config with a symlink to ssh_config.",
+			"gpg": "GPG and gpg-agent configuration; Windows also registers the gpg-connect-agent logon task.",
+			"claude": "Claude Code: statusline symlink, installer, and statusLine setting (Windows).",
+			"vscode": "Windows: VS Code via winget and the EDITOR=code user environment variable. Off by default; when off, EDITOR is set to nvim.",
+			"packages": "scoop/Homebrew package installation, including bucket adds and the Homebrew bootstrap itself.",
+			"go": "Go toolchain (goup on Windows, goenv on macOS) plus golangci-lint and staticcheck.",
+			"terminal": "Windows Terminal defaults: pwsh profile, MesloLGM Nerd Font, bar cursor.",
+			"shell": "Shell profile. Windows: pwsh profile rewrite (oh-my-posh, posh-git, PSFzf, eza/bat aliases). macOS: oh-my-zsh install and the ~/.zshrc symlink.",
+			"node": "corepack install and enable via npm.",
+			"repo_remote": "Windows: re-points this repository's origin remote at the $DepotURL defined in setup-win.ps1.",
+			"git_tools_cleanup": "Windows: deletes vim.exe and gpg.exe from the Git for Windows install so scoop's neovim and gpg4win win on PATH."
+		}
+	},
+	"components": {
+		"developer_mode": true,
+		"nvim": true,
+		"git": true,
+		"ssh": true,
+		"gpg": true,
+		"claude": true,
+		"vscode": false,
+		"packages": true,
+		"go": true,
+		"terminal": true,
+		"shell": true,
+		"node": true,
+		"repo_remote": true,
+		"git_tools_cleanup": true
+	},
+	"packages": {
+		"exclude": []
+	}
+}
