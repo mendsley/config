@@ -153,6 +153,20 @@ foreach ($package in $packagesJson.admin_packages) {
 	gsudo scoop install --global $package
 }
 
+# Put git's cmd dir ahead of scoop\shims on PATH. Scoop's git manifest only
+# shims git.exe (ScoopInstaller/Main#8520), and the shim pops a console window
+# when git is launched by a process without one (e.g. bd).
+$gitCmdDir = Join-Path (scoop prefix git) 'cmd'
+if (Test-Path -Path "$gitCmdDir\git.exe") {
+	$userPath = [Environment]::GetEnvironmentVariable("PATH", "User") -split ';' `
+		| Where-Object { $_ -and ($_.TrimEnd('\') -ne $gitCmdDir) } `
+		;
+	[Environment]::SetEnvironmentVariable("PATH", (@($gitCmdDir) + $userPath) -join ';', "User")
+	$env:PATH = "$gitCmdDir;$env:PATH"
+} else {
+	Write-Warning "git cmd dir not found at $gitCmdDir"
+}
+
 # GPG configuration
 New-Item -Path "$env:USERPROFILE\.gnupg" -ItemType Directory -Force | Out-Null
 
